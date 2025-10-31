@@ -123,7 +123,7 @@ export default function Home() {
         style={{ padding: "5rem 1.5rem 0" }}
       >
         <div
-          className={`max-w-4xl mx-auto text-center ${
+          className={`max-w-4xl mx-auto text-center flex flex-col items-center justify-center ${
             visibleSections.includes("home")
               ? "animate-fade-in"
               : "animate-fade-out"
@@ -146,19 +146,24 @@ export default function Home() {
             technologies. Passionate about clean code and exceptional user
             experiences.
           </p>
+
+          <Spacer />
+
           <div
             className="flex gap-4 justify-center w-full"
             style={{ padding: "0 1.5rem" }}
           >
             <button
               onClick={() => scrollToSection("projects")}
-              className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all"
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all"
+              style={{ padding: "0.25rem 1.5rem" }}
             >
               View My Work
             </button>
             <button
               onClick={() => scrollToSection("contact")}
-              className="w-full py-3 border border-gray-700 rounded-full text-white font-medium hover:bg-gray-800 transition-all"
+              className="w-full border border-gray-700 rounded-full text-white font-medium hover:bg-gray-800 transition-all"
+              style={{ padding: "0.25rem 1.5rem" }}
             >
               Get In Touch
             </button>
@@ -210,12 +215,12 @@ export default function Home() {
                 </div>
                 <div>
                   <p className="text-gray-400 text-sm">Nationality</p>
-                  <p className="text-gray-200 text-lg">Nederlandse</p>
+                  <p className="text-gray-200 text-lg">Dutch</p>
                 </div>
               </div>
             </div>
 
-            <Spacer />
+            <Spacer height={3} />
 
             {/* Professional Profile */}
             <div className="mb-8">
@@ -231,7 +236,7 @@ export default function Home() {
               </p>
             </div>
 
-            <Spacer />
+            <Spacer height={3} />
 
             {/* Education */}
             <div className="mb-8">
@@ -251,7 +256,7 @@ export default function Home() {
               </div>
             </div>
 
-            <Spacer />
+            <Spacer height={3} />
 
             {/* Languages */}
             <div className="mb-8">
@@ -270,7 +275,7 @@ export default function Home() {
               </div>
             </div>
 
-            <Spacer />
+            <Spacer height={3} />
 
             {/* Interests */}
             <div>
