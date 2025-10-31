@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Spacer } from "./components/spacer";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
@@ -9,7 +10,14 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "about", "skills", "projects", "contact"];
+      const sections = [
+        "home",
+        "about",
+        "skills",
+        "experience",
+        "projects",
+        "contact",
+      ];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -50,7 +58,14 @@ export default function Home() {
       { threshold: 0.1 }
     );
 
-    const sections = ["home", "about", "skills", "projects", "contact"];
+    const sections = [
+      "home",
+      "about",
+      "skills",
+      "experience",
+      "projects",
+      "contact",
+    ];
     sections.forEach((section) => {
       const element = document.querySelector(`[data-section="${section}"]`);
       if (element) {
@@ -76,21 +91,26 @@ export default function Home() {
               Portfolio
             </h1>
             <div className="hidden md:flex gap-8">
-              {["home", "about", "skills", "projects", "contact"].map(
-                (section) => (
-                  <button
-                    key={section}
-                    onClick={() => scrollToSection(section)}
-                    className={`capitalize transition-colors ${
-                      activeSection === section
-                        ? "text-blue-400"
-                        : "text-gray-400 hover:text-white"
-                    }`}
-                  >
-                    {section}
-                  </button>
-                )
-              )}
+              {[
+                "home",
+                "about",
+                "skills",
+                "experience",
+                "projects",
+                "contact",
+              ].map((section) => (
+                <button
+                  key={section}
+                  onClick={() => scrollToSection(section)}
+                  className={`capitalize transition-colors ${
+                    activeSection === section
+                      ? "text-blue-400"
+                      : "text-gray-400 hover:text-white"
+                  }`}
+                >
+                  {section}
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -170,19 +190,99 @@ export default function Home() {
             className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700"
             style={{ padding: "2rem" }}
           >
-            <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-              I am a passionate developer with a love for creating elegant
-              solutions to complex problems. With expertise in modern web
-              technologies, I specialize in building scalable applications that
-              provide exceptional user experiences.
-            </p>
-            <br />
-            <p className="text-xl text-gray-300 leading-relaxed">
-              When I am not coding, you can find me hanging out with my
-              girlfriend or family and friends, playing video games, watching
-              movies or doing sports. I love to go bouldering and play
-              basketball (although I am not very good at it).
-            </p>
+            {/* Personal Information */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-blue-400 mb-4">
+                Personal Information
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <p className="text-gray-400 text-sm">Name</p>
+                  <p className="text-gray-200 text-lg">Sander van Goch</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 text-sm">Date of Birth</p>
+                  <p className="text-gray-200 text-lg">30-03-2003</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 text-sm">Location</p>
+                  <p className="text-gray-200 text-lg">Hoofddorp</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 text-sm">Nationality</p>
+                  <p className="text-gray-200 text-lg">Nederlandse</p>
+                </div>
+              </div>
+            </div>
+
+            <Spacer />
+
+            {/* Professional Profile */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-blue-400 mb-4">Profile</h3>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                Full Stack Developer with a strong focus on backend architecture
+                and modern application development. I thrive on transforming
+                complex challenges into elegant, scalable solutions while
+                maintaining a keen eye for exceptional user experiences. Driven
+                by clean code principles and continuous learning, I bring both
+                technical expertise and creative problem-solving to every
+                project.
+              </p>
+            </div>
+
+            <Spacer />
+
+            {/* Education */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-blue-400 mb-4">
+                Education
+              </h3>
+              <div className="space-y-3">
+                <div>
+                  <p className="text-gray-200 text-lg font-medium">
+                    Associate Degree in Software Development
+                  </p>
+                  <p className="text-gray-400">
+                    Amsterdam University of Applied Sciences
+                  </p>
+                  <p className="text-gray-400 text-sm">2023 - 2025</p>
+                </div>
+              </div>
+            </div>
+
+            <Spacer />
+
+            {/* Languages */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-blue-400 mb-4">
+                Languages
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <p className="text-gray-400 text-sm">Dutch</p>
+                  <p className="text-gray-200 text-lg">Native Speaker</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 text-sm">English</p>
+                  <p className="text-gray-200 text-lg">Professional Fluency</p>
+                </div>
+              </div>
+            </div>
+
+            <Spacer />
+
+            {/* Interests */}
+            <div>
+              <h3 className="text-2xl font-bold text-blue-400 mb-4">
+                Hobbies & Interests
+              </h3>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                Outside of work, I enjoy sports (bouldering and basketball),
+                gaming, watching movies and spending time with my girlfriend,
+                family and friends.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -273,6 +373,94 @@ export default function Home() {
                         style={{ marginRight: "0.75rem" }}
                       ></span>
                       {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Professional Experience Section */}
+      <section
+        id="experience"
+        className="min-h-screen flex items-center justify-center"
+        style={{ padding: "5rem 1.5rem" }}
+      >
+        <div
+          className={`max-w-6xl mx-auto w-full ${
+            visibleSections.includes("experience")
+              ? "animate-fade-in"
+              : "animate-fade-out"
+          }`}
+          data-section="experience"
+        >
+          <h2
+            className="text-5xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
+            style={{ marginTop: "1rem", marginBottom: "3rem" }}
+          >
+            Professional Experience
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                company: "Lokalist",
+                position: "Full Stack Developer",
+                responsibilities: [
+                  {
+                    title: "DevOps & Infrastructure",
+                    description:
+                      "Established a CI/CD pipeline and configured TurboRepo monorepo structure with comprehensive Cypress testing framework.",
+                  },
+                  {
+                    title: "API Integration",
+                    description:
+                      "Architected and implemented a WooCommerce API integration utilizing object-oriented design patterns, enabling extensible platform integrations for multiple e-commerce providers.",
+                  },
+                  {
+                    title: "Feature Development",
+                    description:
+                      "Designed and deployed a direct ordering system within the client dashboard, providing an alternative solution for client's customers who preferred not to use our platform.",
+                  },
+                ],
+                startDate: "01-07-2025",
+                endDate: "29-10-2025",
+              },
+            ].map((experience, idx) => (
+              <div
+                key={idx}
+                className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700 hover:border-purple-500 transition-all"
+                style={{ padding: "2rem" }}
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-2">
+                      {experience.company}
+                    </h3>
+                    <h2 className="text-xl text-white-400 font-medium">
+                      {experience.position}
+                    </h2>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-400">
+                      {experience.startDate} - {experience.endDate}
+                    </p>
+                  </div>
+                </div>
+                <ul
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.4rem",
+                  }}
+                >
+                  {experience.responsibilities.map((item, itemIdx) => (
+                    <li key={itemIdx} className="text-gray-300">
+                      <span className="font-semibold text-blue-400">
+                        {item.title}:
+                      </span>{" "}
+                      {item.description}
                     </li>
                   ))}
                 </ul>
