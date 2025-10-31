@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
+  const [showToast, setShowToast] = useState(false);
+  const [visibleSections, setVisibleSections] = useState<string[]>(["home"]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +29,36 @@ export default function Home() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const sectionId = entry.target.getAttribute("data-section");
+          if (!sectionId) return;
+
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) =>
+              prev.includes(sectionId) ? prev : [...prev, sectionId]
+            );
+          } else {
+            setVisibleSections((prev) => prev.filter((id) => id !== sectionId));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const sections = ["home", "about", "skills", "projects", "contact"];
+    sections.forEach((section) => {
+      const element = document.querySelector(`[data-section="${section}"]`);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -70,13 +102,20 @@ export default function Home() {
         className="min-h-screen flex items-center justify-center"
         style={{ padding: "5rem 1.5rem 0" }}
       >
-        <div className="max-w-4xl mx-auto text-center">
+        <div
+          className={`max-w-4xl mx-auto text-center ${
+            visibleSections.includes("home")
+              ? "animate-fade-in"
+              : "animate-fade-out"
+          }`}
+          data-section="home"
+        >
           <div className="mb-8 inline-block">
             <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-5xl font-bold text-white mx-auto">
               SvG
             </div>
           </div>
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-fade-in">
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             Sander van Goch
           </h1>
           <p className="text-2xl md:text-3xl text-gray-300 mb-8">
@@ -113,7 +152,14 @@ export default function Home() {
         className="min-h-screen flex items-center justify-center"
         style={{ padding: "5rem 1.5rem" }}
       >
-        <div className="max-w-4xl mx-auto">
+        <div
+          className={`max-w-4xl mx-auto ${
+            visibleSections.includes("about")
+              ? "animate-fade-in"
+              : "animate-fade-out"
+          }`}
+          data-section="about"
+        >
           <h2
             className="text-5xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
             style={{ marginTop: "1rem", marginBottom: "3rem" }}
@@ -147,7 +193,14 @@ export default function Home() {
         className="min-h-screen flex items-center justify-center"
         style={{ padding: "5rem 1.5rem" }}
       >
-        <div className="max-w-6xl mx-auto w-full">
+        <div
+          className={`max-w-6xl mx-auto w-full ${
+            visibleSections.includes("skills")
+              ? "animate-fade-in"
+              : "animate-fade-out"
+          }`}
+          data-section="skills"
+        >
           <h2
             className="text-5xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
             style={{ marginTop: "1rem", marginBottom: "3rem" }}
@@ -235,7 +288,14 @@ export default function Home() {
         className="min-h-screen flex items-center justify-center"
         style={{ padding: "5rem 1.5rem" }}
       >
-        <div className="max-w-6xl mx-auto w-full">
+        <div
+          className={`max-w-6xl mx-auto w-full ${
+            visibleSections.includes("projects")
+              ? "animate-fade-in"
+              : "animate-fade-out"
+          }`}
+          data-section="projects"
+        >
           <h2
             className="text-5xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
             style={{ marginTop: "1rem", marginBottom: "3rem" }}
@@ -249,7 +309,7 @@ export default function Home() {
                 description:
                   "A portfolio website built with Next.js, TypeScript and Tailwind CSS.",
                 tech: ["Next.js", "TypeScript", "Tailwind CSS"],
-                link: "https://www.goch.dev",
+                newTab: false,
               },
               {
                 title: "Kilometer Tracker",
@@ -263,13 +323,23 @@ export default function Home() {
                   "PostgreSQL",
                   "Knock",
                 ],
-                link: "https://www.goch.dev",
+                link: "https://kmtracker.goch.dev/",
+                newTab: true,
               },
             ].map((project, idx) => (
               <div
                 key={idx}
                 className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700 hover:border-purple-500 transition-all group hover:cursor-pointer"
-                onClick={() => window.open(project.link, "_blank")}
+                onClick={() => {
+                  if (!project.link) {
+                    setShowToast(true);
+                    setTimeout(() => setShowToast(false), 3000);
+                  } else if (project.newTab) {
+                    window.open(project.link, "_blank");
+                  } else {
+                    window.location.href = project.link;
+                  }
+                }}
                 style={{ padding: "2rem" }}
               >
                 <h3 className="text-2xl font-bold mb-8 text-white group-hover:text-blue-400 transition-colors">
@@ -301,7 +371,14 @@ export default function Home() {
         className="min-h-screen flex items-center justify-center"
         style={{ padding: "5rem 1.5rem 8rem" }}
       >
-        <div className="max-w-2xl mx-auto w-full">
+        <div
+          className={`max-w-2xl mx-auto w-full ${
+            visibleSections.includes("contact")
+              ? "animate-fade-in"
+              : "animate-fade-out"
+          }`}
+          data-section="contact"
+        >
           <h2
             className="text-5xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
             style={{ marginTop: "1rem", marginBottom: "3rem" }}
@@ -389,6 +466,21 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Toast Notification */}
+      {showToast && (
+        <div
+          className="fixed bottom-8 right-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-4 rounded-lg shadow-2xl z-50 flex items-center gap-3"
+          style={{
+            animation:
+              "slide-in 0.3s ease-out, slide-out 0.3s ease-out 2.7s forwards",
+            padding: "1rem",
+          }}
+        >
+          <span className="text-2xl">✨</span>
+          <span className="font-medium">You are already here!</span>
+        </div>
+      )}
     </div>
   );
 }
