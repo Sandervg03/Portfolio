@@ -442,6 +442,7 @@ export default function Home() {
               },
               {
                 company: "Domits",
+                tags: ["Internship"],
                 position: "Full Stack Developer",
                 responsibilities: [
                   {
@@ -478,9 +479,20 @@ export default function Home() {
               >
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      {experience.company}
-                    </h3>
+                    <div className="flex items-center gap-2 justify-between">
+                      <h3 className="text-2xl font-bold text-white mb-2">
+                        {experience.company}
+                      </h3>
+                      {experience.tags?.map((tag, tagIdx) => (
+                        <span
+                          key={tagIdx}
+                          className="bg-gray-700 rounded-full text-sm text-gray-300"
+                          style={{ padding: "0.25rem 0.5rem" }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                     <h2 className="text-xl text-white-400 font-medium">
                       {experience.position}
                     </h2>
