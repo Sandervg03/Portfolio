@@ -468,7 +468,7 @@ export default function Home() {
                   "PostgreSQL",
                 ],
                 startDate: "01-02-2025",
-                endDate: "01-06-2025",
+                endDate: "31-05-2025",
               },
             ].map((experience, idx) => (
               <div
