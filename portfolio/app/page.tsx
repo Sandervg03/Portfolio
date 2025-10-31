@@ -424,8 +424,51 @@ export default function Home() {
                       "Designed and deployed a direct ordering system within the client dashboard, providing an alternative solution for client's customers who preferred not to use our platform.",
                   },
                 ],
+                tech: [
+                  "TypeScript",
+                  "Next.js",
+                  "Node.js",
+                  "TurboRepo",
+                  "Cypress",
+                  "PostgreSQL",
+                  "Hasura Cloud",
+                  "Temporal",
+                  "Knock",
+                  "PostHog",
+                  "Docker",
+                ],
                 startDate: "01-07-2025",
                 endDate: "29-10-2025",
+              },
+              {
+                company: "Domits",
+                position: "Full Stack Developer",
+                responsibilities: [
+                  {
+                    title: "DevOps & Infrastructure",
+                    description:
+                      "Developed a backend development CLI tool enabling rapid creation of Lambda functions and API Gateways with full local testing capabilities. Implemented a comprehensive CI/CD pipeline for automated testing and deployment to AWS infrastructure.",
+                  },
+                  {
+                    title: "Feature Development",
+                    description:
+                      "Architected and deployed a comprehensive property management API enabling seamless onboarding and administration capabilities. Developed mobile booking functionality with full Stripe payment gateway integration for secure property reservations.",
+                  },
+                ],
+                tech: [
+                  "TypeScript",
+                  "React",
+                  "React Native",
+                  "AWS Lambda",
+                  "AWS S3",
+                  "API Gateway",
+                  "Node.js",
+                  "Stripe",
+                  "Cypress",
+                  "PostgreSQL",
+                ],
+                startDate: "01-02-2025",
+                endDate: "01-06-2025",
               },
             ].map((experience, idx) => (
               <div
@@ -464,6 +507,20 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
+
+                <Spacer />
+
+                <div className="flex flex-wrap gap-4 mt-6">
+                  {experience.tech.map((tech, techIdx) => (
+                    <span
+                      key={techIdx}
+                      className="bg-gray-700 rounded-full text-sm text-gray-300"
+                      style={{ padding: "0.5rem 1rem" }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
