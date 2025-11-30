@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Spacer } from "./components/spacer";
+import Image from "next/image";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
@@ -588,6 +589,20 @@ export default function Home() {
                 link: "https://kmtracker.goch.dev/",
                 newTab: true,
               },
+              {
+                title: "Chess Engine",
+                description:
+                  "An implementation of a chess game that uses the chess engine which I made myself. This project was done for the logistics area of the chess engine, not the ui of this game.",
+                tech: [
+                  "Next.js",
+                  "TypeScript",
+                  "Tailwind CSS",
+                  "Node Package Manager",
+                ],
+                link: "https://chess.goch.dev/",
+                newTab: true,
+                npmLink: "https://www.npmjs.com/package/ts-chess-engine",
+              },
             ].map((project, idx) => (
               <div
                 key={idx}
@@ -621,6 +636,27 @@ export default function Home() {
                     </span>
                   ))}
                 </div>
+
+                {project.npmLink && (
+                  <>
+                    <Spacer height={6} />
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation(); // ✅ stop parent click
+                        window.open(project.npmLink, "_blank"); // use project.npmLink
+                      }}
+                      className="inline-block cursor-pointer"
+                    >
+                      <Image
+                        src="/Npm-logo.svg.png"
+                        alt="NPM Logo"
+                        width={100} // adjust size
+                        height={100}
+                        unoptimized // optional if not using next/image optimization
+                      />
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>
